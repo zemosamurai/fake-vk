@@ -1,9 +1,8 @@
 export const App = () => {
-
-  return (
-    <>
-      <h1>Base</h1>
-    </>
-  )
+	return (
+		<>
+			<div>base</div>
+			<h1>Base</h1>
+		</>
+	)
 }
-
