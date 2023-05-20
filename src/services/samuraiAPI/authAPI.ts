@@ -7,6 +7,7 @@ const authAPI = samuraiAPI.injectEndpoints({
 			query: () => ({
 				url: 'auth/me',
 			}),
+			providesTags: ['Auth'],
 		}),
 
 		login: build.mutation<ResponseType<{ userId: number }>, LoginParamsType>({
@@ -15,6 +16,7 @@ const authAPI = samuraiAPI.injectEndpoints({
 				method: 'POST',
 				body: arg,
 			}),
+			invalidatesTags: ['Auth'],
 		}),
 
 		logOut: build.mutation<ResponseType, void>({
@@ -22,6 +24,7 @@ const authAPI = samuraiAPI.injectEndpoints({
 				url: 'auth/login',
 				method: 'DELETE',
 			}),
+			invalidatesTags: ['Auth'],
 		}),
 	}),
 })
