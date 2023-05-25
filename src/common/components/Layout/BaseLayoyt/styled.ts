@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
 	width: ${({ theme }) => theme.sizes.layout};
-	margin: 60px auto 0;
+	margin: 65px auto 0;
 	padding: 0 15px;
 
 	display: flex;

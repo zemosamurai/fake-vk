@@ -1,3 +1,5 @@
+import { Container } from 'src/common/components'
+
 export const Messages = () => {
-	return <div>Messages List</div>
+	return <Container>Messages List</Container>
 }

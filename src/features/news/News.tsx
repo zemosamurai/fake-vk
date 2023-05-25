@@ -1,3 +1,5 @@
+import { Container } from 'src/common/components'
+
 export const News = () => {
-	return <div>News</div>
+	return <Container>News</Container>
 }

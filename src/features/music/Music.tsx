@@ -1,3 +1,5 @@
+import { Container } from 'src/common/components'
+
 export const Music = () => {
-	return <div>Music</div>
+	return <Container>Music</Container>
 }

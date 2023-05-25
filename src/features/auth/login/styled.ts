@@ -79,5 +79,5 @@ export const ErrorMessage = styled.p`
 	margin-left: 3px;
 	font-size: ${({ theme }) => theme.sizes.font.xs};
 	font-weight: ${({ theme }) => theme.sizes.weight.medium};
-	color: ${({ theme }) => theme.colors.danger};
+	color: red;
 `

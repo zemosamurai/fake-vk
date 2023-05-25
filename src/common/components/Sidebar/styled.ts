@@ -1,5 +1,11 @@
 import { Link } from 'react-router-dom'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
+
+import { ReactComponent as Friend } from 'src/assets/icon/friend.svg'
+import { ReactComponent as Home } from 'src/assets/icon/home.svg'
+import { ReactComponent as Message } from 'src/assets/icon/message.svg'
+import { ReactComponent as Music } from 'src/assets/icon/music.svg'
+import { ReactComponent as News } from 'src/assets/icon/news.svg'
 
 export const Container = styled.div`
 	width: ${({ theme }) => theme.sizes.sidebar};
@@ -19,10 +25,27 @@ export const LinkEl = styled(Link)`
 	border-radius: 4px;
 
 	&:hover {
-		background-color: #e7e8ec;
+		background-color: ${({ theme }) => theme.colors.bg.sidebar_hover};
 	}
 `
 
-export const IconWrapper = styled.div`
+const iconStyle = css`
 	margin-right: 10px;
+	fill: ${({ theme }) => theme.colors.icon_blue};
+`
+
+export const FriendIcon = styled(Friend)`
+	${iconStyle}
+`
+export const HomeIcon = styled(Home)`
+	${iconStyle}
+`
+export const MessageIcon = styled(Message)`
+	${iconStyle}
+`
+export const MusicIcon = styled(Music)`
+	${iconStyle}
+`
+export const NewsIcon = styled(News)`
+	${iconStyle}
 `
