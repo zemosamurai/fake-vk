@@ -1,4 +1,4 @@
-import { Container } from './styled.ts'
+import { Container } from 'src/common/components'
 
 export const ProfileData = () => {
 	return (

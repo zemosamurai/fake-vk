@@ -5,7 +5,7 @@ import { ReactComponent as Help } from 'src/assets/icon/help.svg'
 import { ReactComponent as Setting } from 'src/assets/icon/setting.svg'
 import { ReactComponent as Theme } from 'src/assets/icon/theme.svg'
 
-export const ItemButton = styled.button`
+export const Item = styled.div`
 	width: 100%;
 	padding: 0 16px;
 	height: 36px;
@@ -23,6 +23,14 @@ export const ItemButton = styled.button`
 		cursor: not-allowed;
 		background-color: ${({ theme }) => theme.colors.bg.account_menu_hover};
 	}
+`
+
+export const ItemThemeContent = styled(Item)`
+	padding: 0;
+`
+
+export const Title = styled.span`
+	color: ${({ theme }) => theme.colors.font.primary};
 `
 
 const iconStyled = css`

@@ -27,8 +27,8 @@ export const ProfileLinkMenu = () => {
 		window.addEventListener('click', handlerClickOutline)
 		window.addEventListener('keydown', handlerKeyDown)
 		return () => {
-			window.addEventListener('click', handlerClickOutline)
-			window.addEventListener('keydown', handlerKeyDown)
+			window.removeEventListener('click', handlerClickOutline)
+			window.removeEventListener('keydown', handlerKeyDown)
 		}
 	}, [])
 

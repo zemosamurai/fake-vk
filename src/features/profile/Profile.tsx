@@ -10,7 +10,7 @@ export const Profile = () => {
 
 	return (
 		<>
-			<ProfileHeader userId={data.data.id} />
+			<ProfileHeader ownerId={data.data.id} />
 			<ProfileData />
 		</>
 	)

@@ -1,40 +1,37 @@
+import { useParams } from 'react-router-dom'
+
 import baseProfilePhoto from 'src/assets/image/camera-200.png'
+
+import { Button } from 'src/common/components'
+import { Container } from 'src/common/components'
 
 import { useGetProfileQuery, useGetStatusQuery } from 'src/services/samuraiAPI/profileAPI.ts'
 
-import {
-	Button,
-	ButtonEdit,
-	Container,
-	ImgCover,
-	ProfileImg,
-	ProfileInfo,
-	ProfileWrapper,
-	Subtitle,
-	Title,
-} from './styled.ts'
+import { ProfileImg, ProfileInfo, ProfileWrapper, Subtitle, Title } from './styled.ts'
 
 type PropsType = {
-	userId: number
+	ownerId: number
 }
 
-export const ProfileHeader = ({ userId }: PropsType) => {
-	const { data: dataStatus } = useGetStatusQuery(userId)
-	const { data: dataProfile } = useGetProfileQuery(userId)
+export const ProfileHeader = ({ ownerId }: PropsType) => {
+	const { userId } = useParams()
+	const isOwner = userId === 'owner'
+	const currentId = isOwner ? ownerId : Number(userId)
+
+	const { data: dataStatus } = useGetStatusQuery(currentId)
+	const { data: dataProfile } = useGetProfileQuery(currentId)
 
 	return (
 		<Container>
-			<ImgCover>
-				<ButtonEdit>Edit cover</ButtonEdit>
-			</ImgCover>
 			<ProfileInfo>
-				<ProfileImg src={baseProfilePhoto} />
+				<ProfileImg src={dataProfile?.photos.large || baseProfilePhoto} />
 				<ProfileWrapper>
 					<div>
 						<Title>{dataProfile?.fullName}</Title>
-						<Subtitle>{dataStatus}</Subtitle>
+						{dataStatus && <Subtitle>{dataStatus}</Subtitle>}
 					</div>
-					<Button>Edit profile info</Button>
+					{isOwner && <Button>Edit profile info</Button>}
+					{!isOwner && <Button>Add friend</Button>}
 				</ProfileWrapper>
 			</ProfileInfo>
 		</Container>

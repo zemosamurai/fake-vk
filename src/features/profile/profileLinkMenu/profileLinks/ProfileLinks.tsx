@@ -1,11 +1,21 @@
+import { ChangeEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
+
+import { setTheme } from 'src/app/appSlice.ts'
+
+import { Toggle } from 'src/common/components/Toggle/Toggle.tsx'
+import { useAppDispatch, useAppSelector } from 'src/common/hooks'
+import { stopPropagation } from 'src/common/utils'
 
 import { useLogOutMutation } from 'src/services/samuraiAPI/authAPI.ts'
 import { LogOutEnum } from 'src/services/samuraiAPI/samuraiAPI.types.ts'
 
-import { ExitIcon, HelpIcon, ItemButton, SettingIcon, ThemeIcon } from './styled.ts'
+import { ExitIcon, HelpIcon, Item, ItemThemeContent, SettingIcon, ThemeIcon, Title } from './styled.ts'
 
 export const ProfileLinks = () => {
+	const themeMode = useAppSelector((state) => state.app.theme)
+
+	const dispatch = useAppDispatch()
 	const navigate = useNavigate()
 	const [logOut] = useLogOutMutation()
 
@@ -19,27 +29,36 @@ export const ProfileLinks = () => {
 			})
 	}
 
+	const handlerChangeToggle = (e: ChangeEvent<HTMLInputElement>) => {
+		const value = e.currentTarget.checked
+
+		dispatch(setTheme(value ? 'dark' : 'light'))
+	}
+
 	return (
 		<>
-			<ItemButton>
+			<Item>
 				<SettingIcon />
-				<span>Setting</span>
-			</ItemButton>
+				<Title>Setting</Title>
+			</Item>
 
-			<ItemButton>
-				<ThemeIcon />
-				<span>Theme</span>
-			</ItemButton>
+			<Item onClick={stopPropagation}>
+				<ItemThemeContent>
+					<ThemeIcon />
+					<Title>Theme</Title>
+				</ItemThemeContent>
+				<Toggle checked={themeMode === 'dark'} onChange={handlerChangeToggle} />
+			</Item>
 
-			<ItemButton>
+			<Item>
 				<HelpIcon />
-				<span>Help</span>
-			</ItemButton>
+				<Title>Help</Title>
+			</Item>
 
-			<ItemButton onClick={handlerSignOut}>
+			<Item onClick={handlerSignOut}>
 				<ExitIcon />
-				<span>Sign out</span>
-			</ItemButton>
+				<Title>Sign out</Title>
+			</Item>
 		</>
 	)
 }
