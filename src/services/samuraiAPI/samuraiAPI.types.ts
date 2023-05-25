@@ -8,7 +8,7 @@ export type PhotosType = {
 	large: string
 }
 
-type UserType = {
+export type UserType = {
 	name: string
 	id: number
 	photos: PhotosType

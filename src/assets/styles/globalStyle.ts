@@ -1,6 +1,10 @@
 import { createGlobalStyle } from 'styled-components'
 
 export const GlobalStyle = createGlobalStyle`
+	html {
+    width:100vw;
+    overflow-x:hidden;
+	}
 	:root {
     --blue-400: #5181B8;
     --blue_420: #4A76A8;

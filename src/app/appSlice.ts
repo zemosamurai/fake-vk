@@ -14,4 +14,6 @@ export const appSlice = createSlice({
 	},
 })
 
+export const { setTheme } = appSlice.actions
+
 export const appReducer = appSlice.reducer
