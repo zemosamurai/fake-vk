@@ -17,7 +17,7 @@ export const ProfileImg = styled.img`
 export const ProfileWrapper = styled.div`
 	width: 100%;
 	display: flex;
-	align-items: flex-start;
+	align-items: center;
 	justify-content: space-between;
 `
 

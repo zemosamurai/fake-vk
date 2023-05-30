@@ -18,7 +18,7 @@ export const Header = () => {
 		<Container>
 			<ContentWrapper>
 				<div>{theme === 'light' ? <LogoDark /> : <LogoLight />}</div>
-				{data?.resultCode === AuthEnum.Authorized && <ProfileLinkMenu />}
+				{data?.resultCode === AuthEnum.Authorized && <ProfileLinkMenu userId={data.data.id} />}
 			</ContentWrapper>
 		</Container>
 	)
