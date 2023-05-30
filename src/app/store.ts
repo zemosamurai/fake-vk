@@ -2,7 +2,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit'
 
 import { appReducer } from 'src/app/appSlice.ts'
 
-import { saveTheme } from 'src/common/utils/localStorageTheme.ts'
+import { saveToLocalStorage } from 'src/common/utils/saveLocalStorage.ts'
 
 import { samuraiAPI } from 'src/services/samuraiAPI/samuraiAPI.ts'
 
@@ -17,7 +17,7 @@ export const store = configureStore({
 })
 
 store.subscribe(() => {
-	saveTheme(store.getState().app.theme)
+	saveToLocalStorage('theme', store.getState().app.theme)
 })
 
 export type RootState = ReturnType<typeof store.getState>

@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
-type ThemeType = 'light' | 'dark'
+export type ThemeType = 'light' | 'dark'
 
 export const appSlice = createSlice({
 	name: 'appSlice',
@@ -15,5 +15,4 @@ export const appSlice = createSlice({
 })
 
 export const { setTheme } = appSlice.actions
-
 export const appReducer = appSlice.reducer

@@ -1,13 +1,13 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import baseProfilePhoto from 'src/assets/image/camera-200.png'
+
+import { useFollowUnfollowUser } from 'src/common/hooks'
+import { saveToLocalStorage } from 'src/common/utils/saveLocalStorage.ts'
 
 import { FollowIcon, ImageProfile, Title, UnfollowIcon, UserDataWrapper } from 'src/features/users/user/styled.ts'
 
 import { PATH } from 'src/pages/path.ts'
-
-import { useFollowMutation, useUnFollowMutation } from 'src/services/samuraiAPI/usersAPI.ts'
 
 type PropsType = {
 	id: number
@@ -17,33 +17,24 @@ type PropsType = {
 }
 
 export const User = ({ id, name, photos, followed }: PropsType) => {
-	const [isFollow, setIsFollow] = useState(followed)
-	const [follow] = useFollowMutation()
-	const [unFollow] = useUnFollowMutation()
+	const navigate = useNavigate()
 
-	const handlerFollow = () => {
-		follow(id)
-			.unwrap()
-			.then(() => {
-				setIsFollow(true)
-			})
-	}
-	const handlerUnfollow = () => {
-		unFollow(id)
-			.unwrap()
-			.then(() => {
-				setIsFollow(false)
-			})
+	const { isFollow, handlerFollow, handlerUnfollow } = useFollowUnfollowUser({ userId: id, followed })
+
+	const handlerNavigateToProfile = () => {
+		saveToLocalStorage('isFollowCurrentUser', isFollow)
+		navigate(`${PATH.PROFILE}/${id}`)
 	}
 
 	return (
 		<div>
-			<Link to={`${PATH.PROFILE}/${id}`}>
+			<button onClick={handlerNavigateToProfile}>
 				<ImageProfile src={photos || baseProfilePhoto} alt="profile image" />
-			</Link>
+			</button>
 			<UserDataWrapper>
 				<Title>{name}</Title>
-				{!isFollow ? <FollowIcon onClick={handlerFollow} /> : <UnfollowIcon onClick={handlerUnfollow} />}
+				{isFollow && <UnfollowIcon onClick={handlerUnfollow} />}
+				{!isFollow && <FollowIcon onClick={handlerFollow} />}
 			</UserDataWrapper>
 		</div>
 	)
