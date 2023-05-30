@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom'
+import { memo } from 'react'
 
 import baseProfilePhoto from 'src/assets/image/camera-200.png'
 
@@ -10,16 +10,13 @@ import { useGetProfileQuery, useGetStatusQuery } from 'src/services/samuraiAPI/p
 import { ProfileImg, ProfileInfo, ProfileWrapper, Subtitle, Title } from './styled.ts'
 
 type PropsType = {
-	ownerId: number
+	userId: number
+	isOwner: boolean
 }
 
-export const ProfileHeader = ({ ownerId }: PropsType) => {
-	const { userId } = useParams()
-	const isOwner = userId === 'owner'
-	const currentId = isOwner ? ownerId : Number(userId)
-
-	const { data: dataStatus } = useGetStatusQuery(currentId)
-	const { data: dataProfile } = useGetProfileQuery(currentId)
+export const ProfileHeader = memo(({ userId, isOwner }: PropsType) => {
+	const { data: dataStatus } = useGetStatusQuery(userId)
+	const { data: dataProfile } = useGetProfileQuery(userId)
 
 	return (
 		<Container>
@@ -36,4 +33,4 @@ export const ProfileHeader = ({ ownerId }: PropsType) => {
 			</ProfileInfo>
 		</Container>
 	)
-}
+})

@@ -14,9 +14,8 @@ import { ExitIcon, HelpIcon, Item, ItemThemeContent, SettingIcon, ThemeIcon, Tit
 
 export const ProfileLinks = () => {
 	const themeMode = useAppSelector((state) => state.app.theme)
-
-	const dispatch = useAppDispatch()
 	const navigate = useNavigate()
+	const dispatch = useAppDispatch()
 	const [logOut] = useLogOutMutation()
 
 	const handlerSignOut = () => {
@@ -31,7 +30,6 @@ export const ProfileLinks = () => {
 
 	const handlerChangeToggle = (e: ChangeEvent<HTMLInputElement>) => {
 		const value = e.currentTarget.checked
-
 		dispatch(setTheme(value ? 'dark' : 'light'))
 	}
 

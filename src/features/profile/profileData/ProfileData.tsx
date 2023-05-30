@@ -1,9 +1,17 @@
-import { Container } from 'src/common/components'
+import { memo } from 'react'
 
-export const ProfileData = () => {
-	return (
-		<Container>
-			<p>ProfileData</p>
-		</Container>
-	)
+import { AboutBlock } from 'src/features/profile/profileData/aboutBlock/AboutBlock.tsx'
+import { ContactBlock } from 'src/features/profile/profileData/contactBlock/ContactBlock.tsx'
+
+type PropsType = {
+	userId: number
 }
+
+export const ProfileData = memo(({ userId }: PropsType) => {
+	return (
+		<>
+			<AboutBlock userId={userId} />
+			<ContactBlock userId={userId} />
+		</>
+	)
+})
