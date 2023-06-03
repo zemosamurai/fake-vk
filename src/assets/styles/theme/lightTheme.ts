@@ -38,6 +38,7 @@ export const lightTheme: DefaultTheme = {
 			linkC: '#2A5885',
 		},
 		icon_blue: '#447BBA',
+		loaderColor: '#447BBA',
 	},
 
 	sizes: {

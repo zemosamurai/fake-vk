@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { toast } from 'react-toastify'
 
 import { saveToLocalStorage } from 'src/common/utils/saveLocalStorage.ts'
 
@@ -22,8 +23,8 @@ Custom hook that allows following and unfollowing a user.
 
 export const useFollowUnfollowUser = ({ followed, userId }: PropsType) => {
 	const [isFollow, setIsFollow] = useState(followed)
-	const [follow] = useFollowMutation()
-	const [unFollow] = useUnFollowMutation()
+	const [follow, { data: dataFollow }] = useFollowMutation()
+	const [unFollow, { data: dataUnfollow }] = useUnFollowMutation()
 
 	const handlerFollow = () => {
 		follow(userId)
@@ -31,6 +32,9 @@ export const useFollowUnfollowUser = ({ followed, userId }: PropsType) => {
 			.then(() => {
 				saveToLocalStorage('isFollowCurrentUser', true)
 				setIsFollow(true)
+			})
+			.catch(() => {
+				toast.error('unexpected error')
 			})
 	}
 	const handlerUnfollow = () => {
@@ -40,6 +44,14 @@ export const useFollowUnfollowUser = ({ followed, userId }: PropsType) => {
 				saveToLocalStorage('isFollowCurrentUser', false)
 				setIsFollow(false)
 			})
+			.catch(() => {
+				toast.error('unexpected error')
+			})
+	}
+
+	if (dataFollow?.resultCode === 1 || dataUnfollow?.resultCode === 1) {
+		const errorMessage = dataFollow?.messages[0]
+		toast.error(errorMessage)
 	}
 
 	return {

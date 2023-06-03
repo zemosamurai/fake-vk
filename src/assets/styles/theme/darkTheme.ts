@@ -36,5 +36,6 @@ export const darkTheme: DefaultTheme = {
 			friend_status: '#939393',
 		},
 		icon_blue: '#71AAEB',
+		loaderColor: '#FFFFFF',
 	},
 }

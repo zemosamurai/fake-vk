@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
-import { Button, Container, SearchPanel } from 'src/common/components'
+import { Button, Container, LoaderFullWidth, LoaderIsFetchingScroll, SearchPanel } from 'src/common/components'
 import { useScroll } from 'src/common/hooks/useScroll.ts'
 
 import { Friend } from 'src/features/friends/friend/Friend.tsx'
@@ -16,10 +17,10 @@ export const Friends = () => {
 	const navigate = useNavigate()
 	const { page, setIsFetching } = useScroll()
 	const [friends, setFriends] = useState<UserType[]>([])
-	const { data } = useGetUsersQuery({ friend: true, count: 10, page })
+	const { data, error, isFetching, isLoading } = useGetUsersQuery({ friend: true, count: 10, page })
 
 	useEffect(() => {
-		if (data?.items.length) {
+		if (!data?.error && data?.items.length) {
 			setFriends((prev) => [...prev, ...data.items])
 			setIsFetching(false)
 		}
@@ -29,6 +30,15 @@ export const Friends = () => {
 		console.log('click handlerSearchClick')
 	}, [])
 	const handlerNavigateToAllUsers = () => navigate(PATH.USERS)
+
+	if (isLoading) return <LoaderFullWidth />
+	if (error || data?.error) {
+		if (data?.error) {
+			toast.error(data.error)
+		} else {
+			toast.error('unexpected error')
+		}
+	}
 
 	return (
 		<Container>
@@ -46,6 +56,7 @@ export const Friends = () => {
 					<Friend key={el.id} id={el.id} name={el.name} followed={el.followed} photos={el.photos.small} />
 				))}
 			</FriendsContainer>
+			{isFetching && <LoaderIsFetchingScroll />}
 		</Container>
 	)
 }

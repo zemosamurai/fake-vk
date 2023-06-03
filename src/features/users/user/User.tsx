@@ -18,7 +18,6 @@ type PropsType = {
 
 export const User = ({ id, name, photos, followed }: PropsType) => {
 	const navigate = useNavigate()
-
 	const { isFollow, handlerFollow, handlerUnfollow } = useFollowUnfollowUser({ userId: id, followed })
 
 	const handlerNavigateToProfile = () => {

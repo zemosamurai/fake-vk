@@ -1,4 +1,6 @@
 import { useLayoutEffect } from 'react'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import { ThemeProvider } from 'styled-components'
 
 import { ThemeType, setTheme } from 'src/app/appSlice.ts'
@@ -27,6 +29,7 @@ export const App = () => {
 		<ThemeProvider theme={currentTheme}>
 			<GlobalStyle />
 			<Pages />
+			<ToastContainer theme={theme} position={'bottom-left'} />
 		</ThemeProvider>
 	)
 }

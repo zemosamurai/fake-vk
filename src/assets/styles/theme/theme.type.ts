@@ -29,6 +29,7 @@ export type ColorsType = {
 	bg: ColorsBgType
 	font: ColorsFontType
 	icon_blue: string
+	loaderColor: string
 }
 type ColorsBtnType = {
 	primary_bg: string

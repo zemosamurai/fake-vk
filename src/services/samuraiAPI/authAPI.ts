@@ -1,3 +1,5 @@
+import { setAuthData } from 'src/features/auth/authSlice.ts'
+
 import { samuraiAPI } from 'src/services/samuraiAPI/samuraiAPI.ts'
 import { AuthMeType, LoginParamsType, ResponseType } from 'src/services/samuraiAPI/samuraiAPI.types.ts'
 
@@ -8,6 +10,15 @@ const authAPI = samuraiAPI.injectEndpoints({
 				url: 'auth/me',
 			}),
 			providesTags: ['Auth'],
+			async onQueryStarted(_, { queryFulfilled, dispatch }) {
+				try {
+					const { data } = await queryFulfilled
+
+					dispatch(setAuthData(data.data))
+				} catch (err) {
+					console.log(err)
+				}
+			},
 		}),
 
 		login: build.mutation<ResponseType<{ userId: number }>, LoginParamsType>({

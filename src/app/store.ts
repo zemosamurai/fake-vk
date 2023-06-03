@@ -4,10 +4,13 @@ import { appReducer } from 'src/app/appSlice.ts'
 
 import { saveToLocalStorage } from 'src/common/utils/saveLocalStorage.ts'
 
+import { authReducer } from 'src/features/auth/authSlice.ts'
+
 import { samuraiAPI } from 'src/services/samuraiAPI/samuraiAPI.ts'
 
 const rootReducer = combineReducers({
 	[samuraiAPI.reducerPath]: samuraiAPI.reducer,
+	auth: authReducer,
 	app: appReducer,
 })
 
