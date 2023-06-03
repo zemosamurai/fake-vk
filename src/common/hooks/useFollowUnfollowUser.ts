@@ -3,6 +3,7 @@ import { toast } from 'react-toastify'
 
 import { saveToLocalStorage } from 'src/common/utils/saveLocalStorage.ts'
 
+import { FollowUnfollow } from 'src/services/samuraiAPI/samuraiAPI.types.ts'
 import { useFollowMutation, useUnFollowMutation } from 'src/services/samuraiAPI/usersAPI.ts'
 
 type PropsType = {
@@ -49,7 +50,7 @@ export const useFollowUnfollowUser = ({ followed, userId }: PropsType) => {
 			})
 	}
 
-	if (dataFollow?.resultCode === 1 || dataUnfollow?.resultCode === 1) {
+	if (dataFollow?.resultCode === FollowUnfollow.BadRequest || dataUnfollow?.resultCode === FollowUnfollow.BadRequest) {
 		const errorMessage = dataFollow?.messages[0]
 		toast.error(errorMessage)
 	}

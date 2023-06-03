@@ -26,6 +26,10 @@ export type GetUsersParamsType = {
 	term?: string
 	friend?: boolean
 }
+export enum FollowUnfollow {
+	OK = 0,
+	BadRequest = 1,
+}
 
 export type AuthMeType = {
 	id: number
@@ -36,6 +40,7 @@ export type LoginParamsType = {
 	email: string
 	password: string
 	rememberMe?: boolean
+	captcha?: string
 }
 export enum AuthEnum {
 	Authorized = 0,

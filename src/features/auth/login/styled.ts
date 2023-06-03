@@ -19,7 +19,7 @@ export const WrapperForm = styled.div`
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	padding: 30px 30px;
+	padding: 20px 30px;
 	background-color: ${({ theme }) => theme.colors.bg.secondary};
 	border-radius: 0 12px 12px 0;
 `
@@ -35,7 +35,12 @@ export const Form = styled.form`
 	width: 300px;
 	display: flex;
 	flex-direction: column;
-	row-gap: 34px;
+	row-gap: 30px;
+`
+
+export const CaptchaImg = styled.img`
+	display: block;
+	margin: 0 auto 30px;
 `
 
 export const Input = styled.input`

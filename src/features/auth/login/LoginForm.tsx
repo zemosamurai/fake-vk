@@ -1,13 +1,16 @@
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
 import * as yup from 'yup'
 
 import { InputPassword } from 'src/common/components/InputPassword/InputPassword.tsx'
 
 import { useLoginMutation } from 'src/services/samuraiAPI/authAPI.ts'
 import { AuthEnum, LoginParamsType } from 'src/services/samuraiAPI/samuraiAPI.types.ts'
+import { useGetCaptchaQuery } from 'src/services/samuraiAPI/securityAPI.ts'
 
-import { Button, CheckboxWrapper, ErrorMessage, Form, Input } from './styled.ts'
+import { Button, CaptchaImg, CheckboxWrapper, ErrorMessage, Form, Input } from './styled.ts'
 
 const validateSchema = yup.object({
 	email: yup.string().required().email(),
@@ -15,26 +18,35 @@ const validateSchema = yup.object({
 })
 
 export const LoginForm = () => {
+	const [getCaptcha, setGetCaptcha] = useState(true)
+	const [login, { error }] = useLoginMutation()
+	const { data: dataCaptcha } = useGetCaptchaQuery(undefined, { skip: getCaptcha })
+
 	const {
 		register,
-		reset,
 		handleSubmit,
 		formState: { errors },
 	} = useForm<LoginParamsType>({
 		defaultValues: { rememberMe: true },
 		resolver: yupResolver(validateSchema),
 	})
-	const [login] = useLoginMutation()
 
 	const onSubmit = (dataForm: LoginParamsType) => {
 		login(dataForm)
 			.unwrap()
 			.then((res) => {
+				if (res.resultCode === AuthEnum.NotAuthorized) {
+					toast.error(res.messages[0])
+				}
 				if (res.resultCode === AuthEnum.Captcha) {
-					console.log('Enter CAPTCHA')
+					setGetCaptcha(false)
+					toast.error(res.messages[0])
 				}
 			})
-		reset()
+	}
+
+	if (error) {
+		toast.error('unexpected error')
 	}
 
 	return (
@@ -48,6 +60,13 @@ export const LoginForm = () => {
 				<InputPassword {...register('password')} />
 				{errors.password && <ErrorMessage>{errors.password.message}</ErrorMessage>}
 			</div>
+
+			{dataCaptcha?.url && (
+				<div>
+					<CaptchaImg src={dataCaptcha.url} alt="captcha" />
+					<Input placeholder={'captcha'} {...register('captcha')} />
+				</div>
+			)}
 
 			<CheckboxWrapper>
 				<input type={'checkbox'} {...register('rememberMe')} />

@@ -41,10 +41,4 @@ const profileAPI = samuraiAPI.injectEndpoints({
 	}),
 })
 
-export const {
-	useLazyGetProfileQuery,
-	useGetProfileQuery,
-	useGetStatusQuery,
-	useUpdateStatusMutation,
-	useSavePhotoMutation,
-} = profileAPI
+export const { useGetProfileQuery, useGetStatusQuery, useUpdateStatusMutation, useSavePhotoMutation } = profileAPI
