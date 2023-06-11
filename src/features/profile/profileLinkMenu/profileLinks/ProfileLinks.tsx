@@ -1,5 +1,6 @@
 import { ChangeEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 import { setTheme } from 'src/app/appSlice.ts'
 
@@ -24,6 +25,9 @@ export const ProfileLinks = () => {
 			.then((res) => {
 				if (res.resultCode === LogOutEnum.LogOut) {
 					navigate('/login')
+				}
+				if (res.resultCode === LogOutEnum.NotLogOut) {
+					toast.error(res.messages[0])
 				}
 			})
 	}

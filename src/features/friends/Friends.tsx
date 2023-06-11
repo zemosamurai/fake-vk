@@ -15,23 +15,30 @@ import { useGetUsersQuery } from 'src/services/samuraiAPI/usersAPI.ts'
 
 export const Friends = () => {
 	const navigate = useNavigate()
-	const { page, setIsFetching } = useScroll()
+	const { page, setIsFetching, setPage } = useScroll()
 	const [friends, setFriends] = useState<UserType[]>([])
-	const { data, error, isFetching, isLoading } = useGetUsersQuery({ friend: true, count: 10, page })
+	const [term, setTerm] = useState('')
+	const { data, error, isFetching, isLoading } = useGetUsersQuery({ friend: true, term, count: 10, page })
 
 	useEffect(() => {
-		if (!data?.error && data?.items.length) {
-			setFriends((prev) => [...prev, ...data.items])
-			setIsFetching(false)
+		if (!data?.error && data?.items) {
+			if (page > 1) {
+				setFriends((prev) => [...prev, ...data.items])
+				setIsFetching(false)
+			} else {
+				setFriends(data.items)
+			}
 		}
 	}, [data])
 
-	const handlerSearchClick = useCallback(() => {
-		console.log('click handlerSearchClick')
+	const handlerSearchClick = useCallback((searchValue: string) => {
+		setPage(1)
+		setTerm(searchValue)
 	}, [])
 	const handlerNavigateToAllUsers = () => navigate(PATH.USERS)
 
 	if (isLoading) return <LoaderFullWidth />
+
 	if (error || data?.error) {
 		if (data?.error) {
 			toast.error(data.error)

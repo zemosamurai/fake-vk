@@ -34,5 +34,5 @@ export const useScroll = () => {
 		}
 	}, [])
 
-	return { page, setIsFetching }
+	return { page, setIsFetching, setPage }
 }

@@ -5,20 +5,17 @@ import { useAppSelector } from 'src/common/hooks/useAppSelector.ts'
 
 import { ProfileLinkMenu } from 'src/features/profile/profileLinkMenu/ProfileLinkMenu.tsx'
 
-import { useAuthMeQuery } from 'src/services/samuraiAPI/authAPI.ts'
-import { AuthEnum } from 'src/services/samuraiAPI/samuraiAPI.types.ts'
-
 import { Container, ContentWrapper } from './styled.ts'
 
 export const Header = () => {
 	const theme = useAppSelector((state) => state.app.theme)
-	const { data } = useAuthMeQuery()
+	const ownerId = useAppSelector((state) => state.auth.authData.id)
 
 	return (
 		<Container>
 			<ContentWrapper>
 				<div>{theme === 'light' ? <LogoDark /> : <LogoLight />}</div>
-				{data?.resultCode === AuthEnum.Authorized && <ProfileLinkMenu userId={data.data.id} />}
+				{ownerId && <ProfileLinkMenu userId={ownerId} />}
 			</ContentWrapper>
 		</Container>
 	)
