@@ -10,6 +10,7 @@ import { Messages } from 'src/features/messages/Messages.tsx'
 import { Music } from 'src/features/music/Music.tsx'
 import { News } from 'src/features/news/News.tsx'
 import { Profile } from 'src/features/profile/Profile.tsx'
+import { EditProfile } from 'src/features/profile/editProfile/EditProfile.tsx'
 import { Users } from 'src/features/users/Users.tsx'
 
 import { PATH } from 'src/pages/path.ts'
@@ -19,6 +20,7 @@ export const Pages = () => (
 		<Route path={'/'} element={<BaseLayout />}>
 			<Route index element={<Navigate to={PATH.NEWS} />} />
 			<Route path={`${PATH.PROFILE}/:userId`} element={<Profile />} />
+			<Route path={PATH.PROFILE_EDIT} element={<EditProfile />} />
 			<Route path={PATH.NEWS} element={<News />} />
 			<Route path={PATH.FRIENDS} element={<Friends />} />
 			<Route path={PATH.USERS} element={<Users />} />
