@@ -12,7 +12,7 @@ import { PATH } from 'src/pages/path.ts'
 
 import { useGetProfileQuery, useGetStatusQuery } from 'src/services/samuraiAPI/profileAPI.ts'
 
-import { ProfileImg, ProfileInfo, ProfileWrapper, Subtitle, Title } from './styled.ts'
+import { ProfileImg, ProfileInfo, ProfileWrapper, Subtitle, Title, WrapperInfo } from './styled.ts'
 
 type PropsType = {
 	userId: number
@@ -38,10 +38,10 @@ export const ProfileHeader = memo(({ userId, isOwner }: PropsType) => {
 			<ProfileInfo>
 				<ProfileImg src={dataProfile?.photos.large || baseProfilePhoto} />
 				<ProfileWrapper>
-					<div>
+					<WrapperInfo>
 						<Title>{dataProfile?.fullName}</Title>
 						{dataStatus && <Subtitle>{dataStatus}</Subtitle>}
-					</div>
+					</WrapperInfo>
 					{isOwner && <Button onClick={handlerNavigateToEdit}>Edit profile</Button>}
 					{!isOwner && isFollow && <Button onClick={handlerUnfollow}>Unfollow</Button>}
 					{!isOwner && !isFollow && <Button onClick={handlerFollow}>Follow</Button>}

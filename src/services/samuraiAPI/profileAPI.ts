@@ -7,6 +7,7 @@ const profileAPI = samuraiAPI.injectEndpoints({
 			query: (userId) => ({
 				url: `profile/${userId}`,
 			}),
+			providesTags: ['Profile'],
 		}),
 
 		getStatus: build.query<string | null, number>({
@@ -15,28 +16,24 @@ const profileAPI = samuraiAPI.injectEndpoints({
 			}),
 		}),
 
-		updateStatus: build.mutation<ResponseType, string>({
-			query: (status) => ({
+		updateStatus: build.mutation<ResponseType, { status: string }>({
+			query: (data) => ({
 				url: 'profile/status',
 				method: 'PUT',
-				body: { status },
+				body: data,
 			}),
 		}),
 
-		savePhoto: build.mutation<ResponseType<PhotosType>, File>({
-			query: (photoFile) => {
-				const formData = new FormData()
-				formData.append('image', photoFile)
-
+		savePhoto: build.mutation<ResponseType<PhotosType>, any>({
+			query: (body) => {
+				console.log(body)
 				return {
-					url: 'profile/status',
+					url: 'profile/photo',
 					method: 'PUT',
-					headers: {
-						'Content-Type': 'multipart/form-data',
-					},
-					body: formData,
+					body,
 				}
 			},
+			invalidatesTags: ['Profile'],
 		}),
 	}),
 })

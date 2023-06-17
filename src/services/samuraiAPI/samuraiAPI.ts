@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 export const samuraiAPI = createApi({
 	reducerPath: 'samuraiAPI',
-	tagTypes: ['Auth', 'Users'],
+	tagTypes: ['Auth', 'Users', 'Profile'],
 	baseQuery: fetchBaseQuery({
 		baseUrl: 'https://social-network.samuraijs.com/api/1.0/',
 		credentials: 'include',

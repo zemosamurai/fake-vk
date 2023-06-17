@@ -11,7 +11,7 @@ const variants = {
 	`,
 	['outlined']: css`
 		color: ${({ theme }) => theme.colors.btn.secondary_color};
-		background-color: ${({ theme }) => theme.colors.btn.outlined_bg};
+		background: none;
 		box-shadow: 0 0 0 1px #dce1e6;
 	`,
 }

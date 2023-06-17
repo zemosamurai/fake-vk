@@ -21,6 +21,10 @@ export const ProfileWrapper = styled.div`
 	justify-content: space-between;
 `
 
+export const WrapperInfo = styled.div`
+	width: 500px;
+`
+
 export const Title = styled.h1`
 	margin-bottom: 5px;
 	font-size: 21px;
@@ -30,4 +34,5 @@ export const Title = styled.h1`
 
 export const Subtitle = styled.p`
 	color: ${({ theme }) => theme.colors.font.secondary_light};
+	word-break: break-word;
 `
