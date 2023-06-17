@@ -12,3 +12,4 @@ export { LoaderIsFetchingScroll } from './LoaderIsFetchingScroll/LoaderIsFetchin
 export { Tab } from './Tabs/Tab.tsx'
 export { TabPanel } from './Tabs/TabPanel.tsx'
 export { Tabs } from './Tabs/Tabs.tsx'
+export { Input } from './Input/Input.ts'
