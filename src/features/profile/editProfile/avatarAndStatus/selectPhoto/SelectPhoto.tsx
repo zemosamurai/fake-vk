@@ -14,7 +14,7 @@ export const SelectPhoto = ({ onSelectPhoto }: PropsType) => {
 				<Text>
 					It will be easier for friends to recognize you if you upload your real photo.
 					<br />
-					You can upload an image in JPG, GIF or PNG format.
+					You can upload an image in JPG, JPEG or PNG format.
 				</Text>
 				<InputTypeFile onSelectedImage={onSelectPhoto}>
 					<Button variant={'primary'}>Select file</Button>

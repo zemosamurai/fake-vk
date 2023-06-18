@@ -22,14 +22,14 @@ export const LinerProgress = styled.div`
 
 	&::after {
 		content: '';
-		width: 400px;
+		width: 200px;
 		height: 3px;
-		background: #6156d3;
+		background: ${({ theme }) => theme.colors.font.primary};
 		position: absolute;
-		border-radius: 25px;
+		border-radius: 10%;
 		top: 0;
 		left: 0;
 		box-sizing: border-box;
-		animation: ${animloader} 2s linear infinite;
+		animation: ${animloader} 1s linear infinite;
 	}
 `

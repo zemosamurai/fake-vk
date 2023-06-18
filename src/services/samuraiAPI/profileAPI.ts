@@ -1,6 +1,8 @@
 import { samuraiAPI } from 'src/services/samuraiAPI/samuraiAPI.ts'
 import { GetProfileType, PhotosType, ResponseType } from 'src/services/samuraiAPI/samuraiAPI.types.ts'
 
+type RequestUpdateParam = Omit<GetProfileType, 'photos'>
+
 const profileAPI = samuraiAPI.injectEndpoints({
 	endpoints: (build) => ({
 		getProfile: build.query<GetProfileType, number>({
@@ -10,10 +12,20 @@ const profileAPI = samuraiAPI.injectEndpoints({
 			providesTags: ['Profile'],
 		}),
 
+		updateProfile: build.mutation<ResponseType, RequestUpdateParam>({
+			query: (arg) => ({
+				url: `profile`,
+				method: 'PUT',
+				body: arg,
+			}),
+			invalidatesTags: ['Profile'],
+		}),
+
 		getStatus: build.query<string | null, number>({
 			query: (userId) => ({
 				url: `profile/status/${userId}`,
 			}),
+			providesTags: ['ProfileStatus'],
 		}),
 
 		updateStatus: build.mutation<ResponseType, { status: string }>({
@@ -22,11 +34,11 @@ const profileAPI = samuraiAPI.injectEndpoints({
 				method: 'PUT',
 				body: data,
 			}),
+			invalidatesTags: ['ProfileStatus'],
 		}),
 
 		savePhoto: build.mutation<ResponseType<PhotosType>, any>({
 			query: (body) => {
-				console.log(body)
 				return {
 					url: 'profile/photo',
 					method: 'PUT',
@@ -38,4 +50,10 @@ const profileAPI = samuraiAPI.injectEndpoints({
 	}),
 })
 
-export const { useGetProfileQuery, useGetStatusQuery, useUpdateStatusMutation, useSavePhotoMutation } = profileAPI
+export const {
+	useGetProfileQuery,
+	useGetStatusQuery,
+	useUpdateStatusMutation,
+	useSavePhotoMutation,
+	useUpdateProfileMutation,
+} = profileAPI

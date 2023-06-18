@@ -3,9 +3,14 @@ import styled from 'styled-components'
 export const Wrapper = styled.div`
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
 	row-gap: 50px;
+`
+
+export const FlexItem = styled.div`
+	display: flex;
 	align-items: center;
+	justify-content: space-between;
+	margin-right: 20px;
 `
 
 export const ImageContainer = styled.div`
@@ -64,6 +69,17 @@ export const InputEdit = styled.input`
 
 export const ButtonAdd = styled.button`
 	color: ${({ theme }) => theme.colors.font.primary};
-	padding: 7px;
+	background-color: ${({ theme }) => theme.colors.bg.blue};
+	padding: 1px 5px;
+	border-radius: 3px;
 	margin-right: 10px;
+
+	&:disabled {
+		cursor: default;
+		opacity: 0.5;
+	}
+
+	&:hover {
+		opacity: 0.8;
+	}
 `

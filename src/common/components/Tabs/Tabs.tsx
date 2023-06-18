@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export type TabsType = 'tab-1' | 'tab-2'
+export type TabsType = 'tab-1' | 'tab-2' | 'tab-3'
 
 export const Tabs = styled.div`
 	display: flex;

@@ -29,4 +29,13 @@ export const Button = styled.button<PropsType>`
 	font-weight: ${({ theme }) => theme.sizes.weight.bold};
 	font-size: ${({ theme }) => theme.sizes.font.m};
 	border-radius: 6px;
+
+	&:disabled {
+		cursor: default;
+		opacity: 0.5;
+	}
+
+	&:hover {
+		opacity: 0.8;
+	}
 `
