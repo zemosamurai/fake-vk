@@ -5,6 +5,7 @@ import { BaseLayout } from 'src/common/components/Layout/BaseLayoyt/BaseLayout.t
 import { NotFound } from 'src/common/components/NotFound/NotFound.tsx'
 
 import { Login } from 'src/features/auth/login/Login.tsx'
+import { Chat } from 'src/features/chat/Chat.tsx'
 import { Friends } from 'src/features/friends/Friends.tsx'
 import { Messages } from 'src/features/messages/Messages.tsx'
 import { Music } from 'src/features/music/Music.tsx'
@@ -24,7 +25,8 @@ export const Pages = () => (
 			<Route path={PATH.NEWS} element={<News />} />
 			<Route path={PATH.FRIENDS} element={<Friends />} />
 			<Route path={PATH.USERS} element={<Users />} />
-			<Route path={PATH.MESSAGES} element={<Messages />} />
+			<Route path={PATH.DIALOGS} element={<Messages />} />
+			<Route path={PATH.CHAT} element={<Chat />} />
 			<Route path={PATH.MUSIC} element={<Music />} />
 		</Route>
 

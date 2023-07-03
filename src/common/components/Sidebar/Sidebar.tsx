@@ -5,9 +5,10 @@ import { Container, FriendIcon, HomeIcon, LinkEl, MessageIcon, MusicIcon, NewsIc
 const navigates = [
 	{ id: 1, title: 'My profile', path: `${PATH.PROFILE}/owner`, icon: HomeIcon },
 	{ id: 2, title: 'News', path: PATH.NEWS, icon: NewsIcon },
-	{ id: 3, title: 'Messages', path: PATH.MESSAGES, icon: MessageIcon },
+	{ id: 3, title: 'Messages', path: PATH.DIALOGS, icon: MessageIcon },
 	{ id: 4, title: 'Friends', path: PATH.FRIENDS, icon: FriendIcon },
 	{ id: 5, title: 'Music', path: PATH.MUSIC, icon: MusicIcon },
+	{ id: 6, title: 'Dev chat', path: PATH.CHAT, icon: MessageIcon },
 ]
 
 export const Sidebar = () => {

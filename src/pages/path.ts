@@ -3,7 +3,8 @@ export const PATH = {
 	PROFILE_EDIT: '/profile/owner/edit',
 	USERS: '/users',
 	NEWS: '/news',
-	MESSAGES: '/messages',
+	DIALOGS: '/dialogs',
+	CHAT: '/chat',
 	FRIENDS: '/friends',
 	MUSIC: '/music',
 
