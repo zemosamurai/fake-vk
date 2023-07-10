@@ -35,6 +35,14 @@ export const darkTheme: DefaultTheme = {
 			friend_name: '#ffffff',
 			friend_status: '#939393',
 		},
+
+		messages: {
+			...lightTheme.colors.messages,
+			send_btn: '#b2b2b2',
+			send_btn_hover: '#d2d2d2',
+			bg: '#292929',
+			border: '#555555',
+		},
 		icon_blue: '#71AAEB',
 		loaderColor: '#FFFFFF',
 	},

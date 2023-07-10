@@ -1,60 +1,39 @@
-import { useEffect, useState } from 'react'
+import { UIEvent, useEffect, useRef, useState } from 'react'
 
-import { ChatMessageType } from 'src/features/chat/Chat.tsx'
 import { Message } from 'src/features/messages/message/Message.tsx'
+import { AnchorDiv, Wrapper } from 'src/features/messages/styled.ts'
+
+import { MessageType } from 'src/services/samuraiAPI/chatAPI.ts'
 
 type PropsType = {
-	wsChanel: WebSocket | null
+	messagesData: MessageType[]
 }
 
-export const Messages = ({ wsChanel }: PropsType) => {
-	const [messages, setMessages] = useState<ChatMessageType[]>([])
-
-	// const data = [
-	// 	{
-	// 		message: 'hello World',
-	// 		photo: 'https://placehold.co/50',
-	// 		userId: 1,
-	// 		userName: 'Dimych',
-	// 	},
-	// 	{
-	// 		message: 'hello World',
-	// 		photo: 'https://placehold.co/50',
-	// 		userId: 2,
-	// 		userName: 'Dimych',
-	// 	},
-	// 	{
-	// 		message: 'hello World',
-	// 		photo: 'https://placehold.co/50',
-	// 		userId: 3,
-	// 		userName: 'Dimych',
-	// 	},
-	// 	{
-	// 		message: 'hello World',
-	// 		photo: 'https://placehold.co/50',
-	// 		userId: 4,
-	// 		userName: 'Dimych',
-	// 	},
-	// ]
+export const Messages = ({ messagesData }: PropsType) => {
+	const anchorRef = useRef<HTMLDivElement>(null)
+	const [isAutoScroll, setIsAutoScroll] = useState(true)
 
 	useEffect(() => {
-		const messageHandler = (e: MessageEvent) => {
-			const newMessages = JSON.parse(e.data)
-			setMessages((prev) => [...prev, ...newMessages])
+		if (isAutoScroll) {
+			anchorRef.current?.scrollIntoView({ behavior: 'smooth' })
 		}
+	}, [messagesData])
 
-		wsChanel?.addEventListener('message', messageHandler)
-
-		return () => {
-			wsChanel?.removeEventListener('message', messageHandler)
+	const handlerScroll = (e: UIEvent<HTMLDivElement>) => {
+		const element = e.currentTarget
+		if (Math.abs(element.scrollHeight - element.scrollTop - element.clientHeight) < 300) {
+			setIsAutoScroll(true)
+		} else {
+			setIsAutoScroll(false)
 		}
-	}, [wsChanel])
+	}
 
 	return (
-		<div>
-			{messages.map((el, i) => (
-				<Message key={i} userName={el.userName} message={el.message} photo={el.photo} />
+		<Wrapper onScroll={handlerScroll}>
+			{messagesData?.map((el, i) => (
+				<Message key={i} userId={el.userId} userName={el.userName} message={el.message} photo={el.photo} />
 			))}
-		</div>
+			<AnchorDiv ref={anchorRef} />
+		</Wrapper>
 	)
 }

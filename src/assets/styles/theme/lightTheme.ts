@@ -37,6 +37,12 @@ export const lightTheme: DefaultTheme = {
 
 			linkC: '#2A5885',
 		},
+		messages: {
+			send_btn: '#818c99',
+			send_btn_hover: '#737b80',
+			bg: '#EDEEF0',
+			border: '#d3d9de',
+		},
 		icon_blue: '#447BBA',
 		loaderColor: '#447BBA',
 	},

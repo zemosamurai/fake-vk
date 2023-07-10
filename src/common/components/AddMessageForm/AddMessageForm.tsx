@@ -1,42 +1,46 @@
-import { ChangeEvent, useEffect, useState } from 'react'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { useForm } from 'react-hook-form'
+import * as yup from 'yup'
 
-type PropsType = {
-	wsChanel: WebSocket | null
+import { Emoji } from 'src/common/components/AddMessageForm/Emoji/Emoji.tsx'
+import { Button, Input, InputContainer, SendIcon, Wrapper } from 'src/common/components/AddMessageForm/styled.ts'
+
+import { useSendChatDevMessageMutation } from 'src/services/samuraiAPI/chatAPI.ts'
+
+type FormData = {
+	message: string
 }
 
-export const AddMessageForm = ({ wsChanel }: PropsType) => {
-	const [message, setMessage] = useState('')
-	const [readyStatus, setReadyStatus] = useState<'pending' | 'ready'>('pending')
+const validateSchema = yup.object({
+	message: yup.string().required().max(100),
+})
 
-	const handlerChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
-		setMessage(e.currentTarget.value)
+export const AddMessageForm = () => {
+	const { register, handleSubmit, getValues, reset, setValue } = useForm<FormData>({
+		resolver: yupResolver(validateSchema),
+	})
+	const [sendMessage] = useSendChatDevMessageMutation()
+
+	const onSubmit = (data: FormData) => {
+		sendMessage(data.message)
+		reset()
 	}
 
-	useEffect(() => {
-		const openHandler = () => {
-			setReadyStatus('ready')
-		}
-
-		wsChanel?.addEventListener('open', openHandler)
-
-		return () => {
-			wsChanel?.removeEventListener('open', openHandler)
-		}
-	}, [wsChanel])
-
-	const handlerSendMessage = () => {
-		if (message) {
-			wsChanel?.send(message)
-			setMessage('')
-		}
+	const handlerEmojiIcon = (emoji: string) => {
+		const currentValues = getValues()
+		const newValues = currentValues.message + emoji
+		setValue('message', newValues)
 	}
 
 	return (
-		<div>
-			<input value={message} onChange={handlerChangeInput} placeholder={'add message'} />
-			<button disabled={!wsChanel && readyStatus !== 'ready'} onClick={handlerSendMessage}>
-				send message
-			</button>
-		</div>
+		<Wrapper onSubmit={handleSubmit(onSubmit)}>
+			<InputContainer>
+				<Input autoComplete={'off'} placeholder={'add message...'} {...register('message')} />
+				<Emoji setEmojiIcon={handlerEmojiIcon} />
+			</InputContainer>
+			<Button type={'submit'}>
+				<SendIcon />
+			</Button>
+		</Wrapper>
 	)
 }

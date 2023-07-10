@@ -30,6 +30,12 @@ export type ColorsType = {
 	font: ColorsFontType
 	icon_blue: string
 	loaderColor: string
+	messages: {
+		send_btn: string
+		send_btn_hover: string
+		bg: string
+		border: string
+	}
 }
 type ColorsBtnType = {
 	primary_bg: string
