@@ -1,6 +1,13 @@
 import styled from 'styled-components'
 
+import { scrollStyles } from 'src/assets/styles/scrollStyles.ts'
+
 import { Container } from 'src/common/components'
+
+export const DialogPageContainer = styled(Container)`
+	padding: 0;
+	height: calc(100vh - 90px);
+`
 
 export const Wrapper = styled(Container)`
 	padding-bottom: 0;
@@ -13,18 +20,5 @@ export const Wrapper = styled(Container)`
 	overflow-y: auto;
 	margin: 0;
 
-	&::-webkit-scrollbar {
-		width: 5px;
-	}
-
-	&::-webkit-scrollbar-track {
-		margin: 15px;
-	}
-
-	&::-webkit-scrollbar-thumb {
-		background: ${({ theme }) => theme.colors.messages.send_btn};
-		border-radius: 10px;
-	}
+	${scrollStyles}
 `
-
-export const AnchorDiv = styled.div``

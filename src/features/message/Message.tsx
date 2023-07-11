@@ -5,14 +5,14 @@ import basePhoto from 'src/assets/image/camera-200.png'
 
 import { useAppSelector } from 'src/common/hooks'
 
-import { Description, ProfileImage, TextWrapper, Title, Wrapper } from 'src/features/messages/message/styled.ts'
+import { Description, ProfileImage, TextWrapper, Title, Wrapper } from 'src/features/message/styled.ts'
 
 import { PATH } from 'src/pages/path.ts'
 
 type PropsType = {
 	userId: number
 	message: string
-	photo: string
+	photo?: string
 	userName: string
 }
 

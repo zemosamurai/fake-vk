@@ -71,3 +71,29 @@ export type ContactsType = {
 	github: string
 	mainLink: string
 }
+
+export type DialogType = {
+	id: number
+	userName: string
+	hasNewMessages: boolean
+	lastDialogActivityDate: string
+	lastUserActivityDate: string
+	newMessagesCount: number
+	photos: PhotosType
+}
+
+export type MessageType = {
+	id: string
+	body: string
+	addedAt: string
+	senderId: number
+	senderName: string
+	recipientId: number
+	viewed: boolean
+}
+
+export type MessagesType = {
+	items: MessageType[]
+	totalCount: number
+	error: null | string
+}

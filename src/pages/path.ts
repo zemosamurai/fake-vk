@@ -4,6 +4,7 @@ export const PATH = {
 	USERS: '/users',
 	NEWS: '/news',
 	DIALOGS: '/dialogs',
+	DIALOG_PAGE: '/dialog_page',
 	CHAT: '/chat',
 	FRIENDS: '/friends',
 	MUSIC: '/music',
