@@ -12,8 +12,19 @@ const dialogsAPI = samuraiAPI.injectEndpoints({
 			query: (userId) => ({
 				url: `dialogs/${userId}/messages`,
 			}),
+			providesTags: ['CurrentDialogMessages'],
+		}),
+		sendMessage: build.mutation<MessagesType, { userId: string; message: string }>({
+			query: (data) => ({
+				method: 'POST',
+				url: `dialogs/${data.userId}/messages`,
+				body: {
+					body: data.message,
+				},
+			}),
+			invalidatesTags: ['CurrentDialogMessages'],
 		}),
 	}),
 })
 
-export const { useGetDialogsQuery, useGetDialogMessagesQuery } = dialogsAPI
+export const { useGetDialogsQuery, useGetDialogMessagesQuery, useSendMessageMutation } = dialogsAPI

@@ -6,14 +6,15 @@ import { AddMessageForm } from 'src/common/components/AddMessageForm/AddMessageF
 import { DialogMessage } from 'src/features/dialogPage/DialogMessage/DialogMessage.tsx'
 import { DialogPageContainer, Wrapper } from 'src/features/dialogPage/styled.ts'
 
-import { useGetDialogMessagesQuery } from 'src/services/samuraiAPI/dialogsAPI.ts'
+import { useGetDialogMessagesQuery, useSendMessageMutation } from 'src/services/samuraiAPI/dialogsAPI.ts'
 
 export const DialogPage = () => {
 	const { userId } = useParams()
 	const { data, isFetching } = useGetDialogMessagesQuery(userId as string)
+	const [sendMessage] = useSendMessageMutation()
 
 	const handlerSendMessage = (message: string) => {
-		console.log(message)
+		sendMessage({ userId: userId as string, message })
 	}
 
 	if (isFetching) return <LoaderFullWidth />
@@ -22,7 +23,13 @@ export const DialogPage = () => {
 		<DialogPageContainer>
 			<Wrapper>
 				{data?.items.map((el) => (
-					<DialogMessage key={el.id} senderName={el.senderName} message={el.body} addedAt={el.addedAt} />
+					<DialogMessage
+						key={el.id}
+						userId={el.senderId}
+						senderName={el.senderName}
+						message={el.body}
+						addedAt={el.addedAt}
+					/>
 				))}
 			</Wrapper>
 			<AddMessageForm sendMessage={handlerSendMessage} />
